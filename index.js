@@ -19,7 +19,7 @@ app.use(express.json())
 app.use(express.urlencoded({extended: true}))
 
 app.engine('handlebars', handlebars.engine())
-app.set('views',  './src/views')
+app.set('views',  'src/views')
 app.set('view engine', 'handlebars')
 
 app.use(express.static( __dirname+'/public'))
