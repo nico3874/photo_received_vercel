@@ -1,9 +1,9 @@
-/* import express from 'express'
+import express from 'express'
 import handlebars from 'express-handlebars'
-import routerReceive from './routers/receive.route.js'
-import { __dirname } from './utils.js'
+import routerReceive from './src/routers/receive.route.js'
+import { __dirname } from './src/utils.js'
 import cors from 'cors'
-import { PORT } from './config.js'
+import { PORT } from './src/config.js'
 
 
 
@@ -27,4 +27,4 @@ app.use(express.static( __dirname+'/public'))
 app.use('/', routerReceive)
 
 
-app.listen(PORT, ()=>console.log('Servidor corriendo.....')) */
+app.listen(PORT, ()=>console.log('Servidor corriendo.....'))
