@@ -7,8 +7,8 @@
     ],
     "routes": [
       {
-        "src": "/(.*)",
-        "dest": "/"
+        "src": "/(.+\\.handlebars)",
+        "dest": "/src/views/$1"
       }
     ]
   }
