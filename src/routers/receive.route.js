@@ -9,8 +9,7 @@ import { upload, driveClient, createFolderOnDrive } from "../utils.js";
 const router = Router()
 
 router.get('/', (req, res)=>{
-    /* res.render('firtPage', {style: "/css/style.css" }) */
-    res.send('Andando')
+    res.render('firtPage', {style: "/css/style.css" })
    
 })
 
