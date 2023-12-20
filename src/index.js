@@ -18,7 +18,10 @@ app.use(cors())
 app.use(express.json())
 app.use(express.urlencoded({extended: true}))
 
-app.engine('handlebars', handlebars.engine())
+app.engine("handlebars", handlebars.engine({
+    defaultLayout: "main",
+    layoutsDir: path.join(__dirname, "views", "layouts")
+}));
 app.set('views',  __dirname +'views')
 app.set('view engine', 'handlebars')
 
