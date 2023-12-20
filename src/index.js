@@ -4,6 +4,7 @@ import routerReceive from './routers/receive.route.js'
 import { __dirname } from './utils.js'
 import cors from 'cors'
 import { PORT } from './config.js'
+import path from 'path'
 
 
 
@@ -22,7 +23,7 @@ app.engine("handlebars", handlebars.engine({
     defaultLayout: "main",
     layoutsDir: path.join(__dirname, "views", "layouts")
 }));
-app.set('views',  __dirname +'views')
+app.set('views',  __dirname +'/views')
 app.set('view engine', 'handlebars')
 
 app.use(express.static( __dirname+'/public'))
