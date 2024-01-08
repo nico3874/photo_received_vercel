@@ -59,7 +59,7 @@ router.get('/', (req, res)=>{
         const compressedImage = await sharp(imageFile.path)
           /* .resize(800) */ // Ajusta el tamaño de la imagen según tus necesidades
           .jpeg({ quality: 100 }) // Ajusta la calidad de la compresión según tus necesidades
-          /* .toBuffer(); */
+          .toBuffer();
   
         const response = await driveClient.files.create({
           requestBody: imageMetadata,
@@ -69,7 +69,7 @@ router.get('/', (req, res)=>{
           },
         });
 
-        fs.unlinkSync(__dirname+'/photos/'+imageFile.originalname)
+        /* fs.unlinkSync(__dirname+'/photos/'+imageFile.originalname) */
   
         
         
