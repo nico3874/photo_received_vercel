@@ -1,8 +1,11 @@
 import { Router } from "express";
-import fs from 'fs'
+import fs, { unlinkSync } from 'fs'
 import sharp from 'sharp'
 import { Readable } from 'stream'
 import { upload, driveClient, createFolderOnDrive } from "../utils.js";
+
+import { __dirname } from "../utils.js";
+
 
 
 
@@ -13,11 +16,12 @@ router.get('/', (req, res)=>{
    
 })
 
-
+  
+  
   router.post('/upload-images', upload.array('photos'), async (req, res) => {
     
     
-    const allImage = req.files.every(file=>{
+      const allImage = req.files.every(file=>{
       const fileInfo = file.mimetype
       return fileInfo.startsWith('image/')
     })
@@ -50,12 +54,12 @@ router.get('/', (req, res)=>{
           parents: [folderId],
         };
   
-        fs.createReadStream(imageFile.path) 
+       
   
         const compressedImage = await sharp(imageFile.path)
           /* .resize(800) */ // Ajusta el tamaño de la imagen según tus necesidades
           .jpeg({ quality: 100 }) // Ajusta la calidad de la compresión según tus necesidades
-          .toBuffer();
+          /* .toBuffer(); */
   
         const response = await driveClient.files.create({
           requestBody: imageMetadata,
@@ -64,12 +68,14 @@ router.get('/', (req, res)=>{
             body:Readable.from(compressedImage),
           },
         });
-  
-        // Eliminar el archivo temporal después de subirlo a Google Drive
+
         fs.unlinkSync(__dirname+'/photos/'+imageFile.originalname)
+  
+        
         
         console.log(`Imagen "${imageFile.originalname}" subida a Google Drive con ID: ${response.data.id}`);
       }
+      
       
       
       res.send('Las imágenes han sido subidas correctamente a Google Drive');
@@ -81,6 +87,9 @@ router.get('/', (req, res)=>{
       res.sendStatus(401)
     }
   });
+
+  
+ 
 
 
 export default router
