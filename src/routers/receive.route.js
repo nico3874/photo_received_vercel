@@ -13,31 +13,9 @@ router.get('/', (req, res)=>{
    
 })
 
-router.post('/create-folder', async (req, res) => {
-    
-    const folderName = req.body.folderName; // El nombre de la carpeta proviene del campo de texto del formulario
-    
-    try {
-      const folderId = await createFolderOnDrive(folderName);
-      await res.send(`Carpeta "${folderName}" creada en el Google Drive del servidor. ID: ${folderId}`)
-      await res.render('uploadimage');
-    } catch (error) {
-      console.error('Error al crear la carpeta:', error.message);
-      res.status(500).send('Error al crear la carpeta');
-    }
-  });
 
-  router.get('/upload-image', (req, res)=>{
-    res.render('uploadimage')
-  })
-  
   router.post('/upload-images', upload.array('photos'), async (req, res) => {
-    /* console.log('hola..........');
-    if(req.files){
-      console.log(req.files[0])
-    }else{
-      console.log("No hay imagenes procesadas");
-    } */
+    
     
     const allImage = req.files.every(file=>{
       const fileInfo = file.mimetype
@@ -88,7 +66,7 @@ router.post('/create-folder', async (req, res) => {
         });
   
         // Eliminar el archivo temporal después de subirlo a Google Drive
-        
+        fs.unlinkSync(__dirname+'/photos/'+imageFile.originalname)
         
         console.log(`Imagen "${imageFile.originalname}" subida a Google Drive con ID: ${response.data.id}`);
       }
