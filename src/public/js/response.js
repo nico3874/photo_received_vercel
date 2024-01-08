@@ -10,7 +10,7 @@ form.addEventListener('submit', function(event) {
     
     const formData = new FormData(form);
 
-    fetch('https://photo-received-vercel.vercel.app/upload-images', {
+    fetch('https://vanesa-revelado.vercel.app/upload-images', {
       method: 'POST',
       body: formData
     }).then(response=> {
